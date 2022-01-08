@@ -13,7 +13,7 @@
                 <h1 style="text-align: center;">SERTIFIKAT</h1>
             </div>
             <div style="position: absolute; top: 10cm; left: 8.8cm; text-align: center;">
-                <h1 style="text-align: center;">MO <span>№</span>{{ person.cer_nomer }}</h1>
+                <h1 style="text-align: center;">MO <span>№</span>{{ person.cer_nomer|stringformat:"05d" }}</h1>
             </div>
             <div style="position: absolute; top: 12cm; left:55%; transform: translateX(-50%); text-align: center;">
                 <div style="text-align: center; font-size: 20px; font-weight: bolder; text-transform:uppercase">

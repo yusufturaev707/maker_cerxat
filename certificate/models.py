@@ -17,7 +17,6 @@ class Certificate(models.Model):
         return f"{self.familiya} {self.ism} {self.sharf}"
 
     def save(self, *args, **kwargs):
-        self.cer_nomer = "{:05d}".format(self.cer_nomer)
         # data = f"{self.familiya} {self.ism} {self.sharf}"
         data = "https://dtm.uz/page/ilmiy_markaz/"
         qrcode_img = qrcode.make(data=data)
