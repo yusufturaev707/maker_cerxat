@@ -11,34 +11,25 @@ class Certificate(models.Model):
     sharf = models.CharField(max_length=255, blank=True, null=True, verbose_name="Sharf")
     kurs_kuni = models.DateField(null=True, blank=True, verbose_name="Kurs o\'tagan vaqti")
     cer_nomer = models.BigIntegerField(default=0, null=True, verbose_name="Sertifikat raqami")
-    qr_code = models.ImageField(upload_to='qr_codes/', default='qe.png', blank=True, null=True, )
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True, )
 
     def __str__(self):
-        return f"{self.ism}"
+        return f"{self.familiya} {self.ism} {self.sharf}"
 
-    # def save(self, *args, **kwargs):
-    #     # qrcode_img = qrcode.make(self.familiya)
-    #     # canvas = Image.new('RGB', (10, 10), 'white')
-    #     # draw = ImageDraw.Draw(canvas)
-    #     filename = f'qr_code-{self.cer_nomer}.png'
-    #     # buffer = BytesIO()
-    #     # canvas.save(buffer, 'PNG')
-    #     # self.qr_code.save(filename, File(buffer), save=False)
-    #     # canvas.close()
-    #     # super().save(*args, **kwargs)
-    #
-    #     qr = qrcode.QRCode(
-    #         version=1,
-    #         error_correction=qrcode.constants.ERROR_CORRECT_L,
-    #         box_size=10,
-    #         border=4,
-    #     )
-    #     qr.add_data('Some data')
-    #     qr.make(fit=True)
-    #
-    #     self.qr_code = qr.make_image(fill_color="black", back_color="white")
-    #     self.qr_code.save(filename, 'PNG')
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.cer_nomer = "{:05d}".format(self.cer_nomer)
+        # data = f"{self.familiya} {self.ism} {self.sharf}"
+        data = "https://dtm.uz/page/ilmiy_markaz/"
+        qrcode_img = qrcode.make(data=data)
+        canvas = Image.new("RGB", (500, 500), "white")
+        ImageDraw.Draw(canvas)
+        canvas.paste(qrcode_img)
+        filename = f'qr_code-{self.cer_nomer}.png'
+        buffer = BytesIO()
+        canvas.save(buffer, 'PNG')
+        self.qr_code.save(filename, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Sertifikat"
