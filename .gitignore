@@ -5,5 +5,6 @@ __pycache__/
 */__pycache__/
 .pyc
 *.pyc
-#Pipfile
-#Pipfile.lock
+Pipfile
+Pipfile.lock
+media/qr_codes/

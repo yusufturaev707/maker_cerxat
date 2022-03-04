@@ -1,17 +1,46 @@
 from django.db import models
 import qrcode
+from django.utils.translation import gettext_lazy as _
 from io import BytesIO
 from django.core.files import File
 from PIL import Image, ImageDraw
 
 
+class Course(models.Model):
+    name = models.CharField(_("Kurs nomi"), max_length=255, null=True)
+    description = models.TextField(_("Text"), null=True)
+    status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Certificate(models.Model):
-    familiya = models.CharField(max_length=255, blank=True, null=True, verbose_name="Familiya")
-    ism = models.CharField(max_length=255, blank=True, null=True, verbose_name="Ism")
-    sharf = models.CharField(max_length=255, blank=True, null=True, verbose_name="Sharf")
-    kurs_kuni = models.DateField(null=True, blank=True, verbose_name="Kurs o\'tagan vaqti")
-    cer_nomer = models.BigIntegerField(default=0, null=True, verbose_name="Sertifikat raqami")
-    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True, )
+    Months = (
+        ('yanvar', _('Yanvar')),
+        ('fevral', _('Fevral')),
+        ('mart', _('Mart')),
+        ('aprel', _('Aprel')),
+        ('may', _('May')),
+        ('iyun', _('Iyun')),
+        ('iyul', _('Iyul')),
+        ('avgust', _('Avgust')),
+        ('sentabr', _('Sentabr')),
+        ('oktabr', _('Oktabr')),
+        ('dekabr', _('Dekabr')),
+    )
+
+    familiya = models.CharField(_("Familiya"), max_length=255, blank=True, null=True)
+    ism = models.CharField(_("Ism"), max_length=255, blank=True, null=True)
+    sharf = models.CharField(_("Sharf"), max_length=255, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+    start_date = models.CharField(_("Kurs boshlangan kun"),max_length=3,  null=True, blank=True)
+    end_date = models.CharField(_("Kurs tugagan kun"), max_length=3, null=True, blank=True)
+    month = models.CharField(_("Oy"), max_length=50, null=True, blank=True, default="yanvar", choices=Months)
+    cer_nomer = models.BigIntegerField(_("Sertifikat raqami"), default=0, null=True)
+    qr_code = models.ImageField(_("QR Code"), upload_to='qr_codes/', blank=True, null=True)
+    status = models.BooleanField(_("Status"), default=True)
 
     def __str__(self):
         return f"{self.familiya} {self.ism} {self.sharf}"
@@ -31,5 +60,5 @@ class Certificate(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Sertifikat"
-        verbose_name_plural = "Sertifikatlar"
+        verbose_name = _('Sertifikat')
+        verbose_name_plural = _('Sertifikatlar')

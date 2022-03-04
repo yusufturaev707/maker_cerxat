@@ -1,63 +1,71 @@
 {% load static %}
 <div>
-    {% for person in persons %}
-        <div style="position: relative;">
-            <img alt="" src="{% static 'images/certificate.jpg' %}" style="width: 100%;">
-            <div style="position: absolute; top: 4.3cm; left: 6cm; text-align: center;font-size: 19px;">
-                <h1 style="text-align: center;">O‘zbekiston Respublikasi</h1>
-            </div>
-            <div style="position: absolute; top: 6.5cm; left: 7.8cm; text-align: center; font-size: 18px;">
-                <h2 style="text-align: center;">Malaka oshirish haqida</h2>
-            </div>
-            <div style="position: absolute; top: 8cm; left: 8.5cm; text-align: center;">
-                <h1 style="text-align: center;">SERTIFIKAT</h1>
-            </div>
-            <div style="position: absolute; top: 10cm; left: 8.8cm; text-align: center;">
-                <h1 style="text-align: center;">MO <span>№</span>{{ person.cer_nomer|stringformat:"05d" }}</h1>
-            </div>
-            <div style="position: absolute; top: 12cm; left:55%; transform: translateX(-50%); text-align: center;">
-                <div style="text-align: center; font-size: 20px; font-weight: bolder; text-transform:uppercase">
-                    {{ person.familiya }} {{ person.ism }}<br>{{ person.sharf }}
+    {% if persons %}
+        {% for person in persons %}
+            <div style="position: relative;">
+                <img alt="" src="{% static 'images/certificate.jpg' %}" style="width: 100%;">
+                <div style="position: absolute; top: 4.3cm; left: 6cm; text-align: center;font-size: 19px;">
+                    <h1 style="text-align: center;">O‘zbekiston Respublikasi</h1>
+                </div>
+                <div style="position: absolute; top: 6.5cm; left: 7.8cm; text-align: center; font-size: 18px;">
+                    <h2 style="text-align: center;">Malaka oshirish haqida</h2>
+                </div>
+                <div style="position: absolute; top: 8cm; left: 8.5cm; text-align: center;">
+                    <h1 style="text-align: center;">SERTIFIKAT</h1>
+                </div>
+                <div style="position: absolute; top: 10cm; left: 8.8cm; text-align: center;">
+                    <h1 style="text-align: center;">MO <span>№</span>{{ person.cer_nomer|stringformat:"05d" }}</h1>
+                </div>
+                <div style="position: absolute; top: 12cm; left:55%; transform: translateX(-50%); text-align: center;">
+                    <div style="text-align: center; font-size: 20px; font-weight: bolder; text-transform:uppercase">
+                        {{ person.familiya }} {{ person.ism }}<br>{{ person.sharf }}
+                    </div>
+                </div>
+
+                <div style="position: absolute; top: 13.4cm; left: 5.4cm; text-align: center;">
+                    <h3 style="text-align: center; line-height: 0.81cm;">
+                        {% if person.course.id == 1 %}
+                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
+                            Davlat test markazi huzuridagi  Ilmiy - o‘quv amaliy<br> markazida
+                            jami 24 soatlik <br>
+                            Chet tilidan yozish va gapirish ko‘nikmalarini baholash <br> kursi bo‘yicha malakasini
+                            oshirdi.
+                        {% endif %}
+                        <br>
+                        {% if person.course.id == 2 %}
+                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
+                            Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida
+                            jami 36 soatlik <br>
+                            Milliy sertifikat uchun test topshiriqlarini shakllantirish
+                            <br>kursi (o‘zbek tili va adabiyot fani) bo‘yicha malakasini oshirdi.
+                        {% endif %}
+                    </h3>
+                </div>
+                <div style="position: absolute; top: 21.5cm; left: 6.5cm; text-align: center;">
+                    <div style="text-align: center;">
+                        Muhr o‘rni
+                    </div>
+                </div>
+
+                <div style="position: absolute; top: 22.5cm; left: 6.5cm; text-align: center;">
+                    <h3 style="text-align: center;">
+                        Boshliq <span>________________</span> A.Baratov
+                    </h3>
+                </div>
+                <div style="position: absolute; top: 24.3cm; left: 6.5cm; text-align: center;">
+                    <h3 style="text-align: center;">
+                        Sana <span>_______________<span> </span></span> Qayd raqami <span>___________</span>
+                    </h3>
+                </div>
+                <div style="position: absolute; top: 25.5cm; right: 1.5cm; text-align: center;">
+                    <img src="{{ person.qr_code.url }}" alt="" width="100" height="100">
                 </div>
             </div>
+        {% endfor %}
+    {% else %}
+        <h1>None</h1>
+    {% endif %}
 
-            <div style="position: absolute; top: 13.4cm; left: 5.4cm; text-align: center;">
-                <h3 style="text-align: center; line-height: 0.81cm;">
-
-                    2021-yil 21 - 24-dekabr kunlari<br>
-                    Davlat test markazi huzuridagi Ilmiy - o‘quv amaliy<br> markazida
-                    jami 24 soatlik <br>
-                    Chet tilidan yozish va gapirish ko‘nikmalarini baholash <br> kursi  bo‘yicha  malakasini
-                    oshirdi.
-                    <br>
-{#                    2021-yil 17 - 19-dekabr kunlari<br>#}
-{#                    Davlat test markazi huzuridagi Ilmiy-o‘quv amaliy<br> markazida#}
-{#                    jami 36 soatlik <br>#}
-{#                    Milliy sertifikat uchun test topshiriqlarini shakllantirish#}
-{#                    <br>kursi (o‘zbek tili va adabiyot fani) bo‘yicha malakasini oshirdi.#}
-                </h3>
-            </div>
-            <div style="position: absolute; top: 21.5cm; left: 6.5cm; text-align: center;">
-                <div style="text-align: center;">
-                    Muhr o‘rni
-                </div>
-            </div>
-
-            <div style="position: absolute; top: 22.5cm; left: 6.5cm; text-align: center;">
-                <h3 style="text-align: center;">
-                    Boshliq <span>________________</span> A.Baratov
-                </h3>
-            </div>
-            <div style="position: absolute; top: 24.3cm; left: 6.5cm; text-align: center;">
-                <h3 style="text-align: center;">
-                    Sana <span>_______________<span> </span></span> Qayd raqami <span>___________</span>
-                </h3>
-            </div>
-            <div style="position: absolute; top: 25.5cm; right: 1.5cm; text-align: center;">
-                <img src="{{ person.qr_code.url }}" alt="" width="100" height="100">
-            </div>
-        </div>
-    {% endfor %}
 </div>
 
 <script type="text/javascript">
