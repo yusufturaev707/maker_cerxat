@@ -39,7 +39,7 @@ class Certificate(models.Model):
     end_date = models.CharField(_("Kurs tugagan kun"), max_length=3, null=True, blank=True)
     month = models.CharField(_("Oy"), max_length=50, null=True, blank=True, default="yanvar", choices=Months)
     cer_nomer = models.BigIntegerField(_("Sertifikat raqami"), default=0, null=True)
-    qr_code = models.ImageField(_("QR Code"), upload_to='qr_codes/', blank=True, null=True)
+    qr_code = models.ImageField(_("QR Code"), upload_to='qr_codes/', default="qe.png")
     status = models.BooleanField(_("Status"), default=True)
 
     def __str__(self):
