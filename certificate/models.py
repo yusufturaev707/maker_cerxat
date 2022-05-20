@@ -33,7 +33,7 @@ class Certificate(models.Model):
 
     familiya = models.CharField(_("Familiya"), max_length=255, blank=True, null=True)
     ism = models.CharField(_("Ism"), max_length=255, blank=True, null=True)
-    sharf = models.CharField(_("Sharf"), max_length=255, blank=True, null=True)
+    sharf = models.CharField(_("Sharf"), max_length=255, blank=True, null=True, default=" ")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     start_date = models.CharField(_("Kurs boshlangan kun"),max_length=3,  null=True, blank=True)
     end_date = models.CharField(_("Kurs tugagan kun"), max_length=3, null=True, blank=True)
@@ -45,20 +45,21 @@ class Certificate(models.Model):
     def __str__(self):
         return f"{self.familiya} {self.ism} {self.sharf}"
 
-    def save(self, *args, **kwargs):
-        # data = f"{self.familiya} {self.ism} {self.sharf}"
-        data = "https://dtm.uz/page/ilmiy_markaz/"
-        qrcode_img = qrcode.make(data=data)
-        canvas = Image.new("RGB", (500, 500), "white")
-        ImageDraw.Draw(canvas)
-        canvas.paste(qrcode_img)
-        filename = f'qr_code-{self.cer_nomer}.png'
-        buffer = BytesIO()
-        canvas.save(buffer, 'PNG')
-        self.qr_code.save(filename, File(buffer), save=False)
-        canvas.close()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super(Certificate, self).save(*args, **kwargs)
+    #     # data = f"{self.familiya} {self.ism} {self.sharf}"
+    #     data = "https://dtm.uz/page/ilmiy_markaz/"
+    #     qrcode_img = qrcode.make(data=data)
+    #     canvas = Image.new("RGB", (500, 500), "white")
+    #     ImageDraw.Draw(canvas)
+    #     canvas.paste(qrcode_img)
+    #     filename = f'qr_code-{self.cer_nomer}.png'
+    #     buffer = BytesIO()
+    #     canvas.save(buffer, 'PNG')
+    #     self.qr_code.save(filename, File(buffer), save=False)
+    #     canvas.close()
 
     class Meta:
+        # filter = ['id']
         verbose_name = _('Sertifikat')
         verbose_name_plural = _('Sertifikatlar')
