@@ -22,7 +22,14 @@
                     </div>
                 </div>
 
-                <div style="position: absolute; top: 13.5cm; left: 5.3cm; text-align: center;">
+                <div style="position: absolute;
+
+                {% if person.course.id == 1 %}top: 13.8cm; left: 5.2cm;{% endif %}
+                {% if person.course.id == 2 %}top: 12.8cm; left: 4.7cm;{% endif %}
+                {% if person.course.id == 3 %}top: 12.1cm; left: 4.7cm;{% endif %}
+                {% if person.course.id == 4 %}top: 11.6cm; left: 5.4cm;{% endif %}
+
+                text-align: center;">
                     <h3 style="text-align: center; line-height: 0.81cm;">
                         {% if person.course.id == 1 %}
                             2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
@@ -33,24 +40,23 @@
                         {% endif %}
                         <br>
                         {% if person.course.id == 2 %}
-                            2022-yil 29-30-aprel hamda 1-may kunlari<br>
+                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
                             Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida
                             jami 36 soatlik <br>
                             Milliy sertifikat uchun test topshiriqlarini shakllantirish
-                            <br>kursi (o‘zbek tili va adabiyot fani) bo‘yicha malakasini oshirdi.
+                            <br>kursi {% if person.nationality.key == 'uz' %}(o‘zbek tili va adabiyot fani) {% elif person.nationality.key == 'qq' %} (qoraqalpoq tili va adabiyot fani){% endif %}  bo‘yicha malakasini oshirdi.
                         {% endif %}
-{#                    {% if person.course.id == 2 %}#}
-{#                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>#}
-{#                            Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida#}
-{#                            jami 36 soatlik <br>#}
-{#                            Milliy sertifikat uchun test topshiriqlarini shakllantirish#}
-{#                            <br>kursi (o‘zbek tili va adabiyot fani) bo‘yicha malakasini oshirdi.#}
-{#                        {% endif %}#}
                         <br>
                         {% if person.course.id == 3 %}
                             2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
                             Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida
                             jami 48 soatlik <br>Chet tilini bilish darajasini baholash bo‘yicha test topshiriqlarini<br> shakllantirish kursida malakasini oshirdi.
+                        {% endif %}
+                        <br>
+                        {% if person.course.id == 4 %}
+                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
+                            Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida
+                            Chet tilini bilish darajasini aniqlashning <br>umumlashtirilgan ko‘p darajali (Multi-level) test sinoviga <br>tayyorlash kursida malakasini oshirdi.
                         {% endif %}
                     </h3>
                 </div>

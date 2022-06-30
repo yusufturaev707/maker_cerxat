@@ -4,8 +4,8 @@ from .models import Certificate
 
 # Create your views here.
 def print_cer(request):
-    # persons = Certificate.objects.filter(start_date='25').filter(month="aprel")
-    persons = Certificate.objects.filter(cer_nomer__gt=827)
+    persons = Certificate.objects.filter(start_date='9').filter(month="iyun")
+    # persons = Certificate.objects.filter(cer_nomer=891)
     for p in persons:
         if p.sharf is None:
             p.sharf = ''

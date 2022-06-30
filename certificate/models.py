@@ -16,6 +16,19 @@ class Course(models.Model):
         return self.name
 
 
+class Nation(models.Model):
+    name = models.CharField(max_length=10)
+    key = models.CharField(max_length=3, default='uz')
+    status = models.BooleanField(_("Status"), default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Millat')
+        verbose_name_plural = _('Millatlar')
+
+
 class Certificate(models.Model):
     Months = (
         ('yanvar', _('Yanvar')),
@@ -31,16 +44,18 @@ class Certificate(models.Model):
         ('dekabr', _('Dekabr')),
     )
 
+
     familiya = models.CharField(_("Familiya"), max_length=255, blank=True, null=True)
     ism = models.CharField(_("Ism"), max_length=255, blank=True, null=True)
     sharf = models.CharField(_("Sharf"), max_length=255, blank=True, null=True, default=" ")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     start_date = models.CharField(_("Kurs boshlangan kun"),max_length=3,  null=True, blank=True)
     end_date = models.CharField(_("Kurs tugagan kun"), max_length=3, null=True, blank=True)
-    month = models.CharField(_("Oy"), max_length=50, null=True, blank=True, default="yanvar", choices=Months)
+    month = models.CharField(_("Oy"), max_length=50, default="yanvar", choices=Months)
     cer_nomer = models.BigIntegerField(_("Sertifikat raqami"), default=0, null=True)
     qr_code = models.ImageField(_("QR Code"), upload_to='qr_codes/', default="qe.png")
     status = models.BooleanField(_("Status"), default=True)
+    nationality = models.ForeignKey(Nation, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.familiya} {self.ism} {self.sharf}"
