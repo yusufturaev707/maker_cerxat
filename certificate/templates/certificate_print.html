@@ -28,6 +28,7 @@
                 {% if person.course.id == 2 %}top: 12.8cm; left: 4.7cm;{% endif %}
                 {% if person.course.id == 3 %}top: 12.1cm; left: 4.7cm;{% endif %}
                 {% if person.course.id == 4 %}top: 11.6cm; left: 5.4cm;{% endif %}
+                {% if person.course.id == 5 %}top: 11.6cm; left: 4.7cm;{% endif %}
 
                 text-align: center;">
                     <h3 style="text-align: center; line-height: 0.81cm;">
@@ -57,6 +58,11 @@
                             2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
                             Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida
                             Chet tilini bilish darajasini aniqlashning <br>umumlashtirilgan ko‘p darajali (Multi-level) test sinoviga <br>tayyorlash kursida malakasini oshirdi.
+                        {% endif %}
+                        {% if person.course.id == 5 %}
+                            2022-yil {{ person.start_date }}-{{ person.end_date }}-{{ person.month }} kunlari<br>
+                            Davlat test markazi huzuridagi  Ilmiy-o‘quv amaliy<br> markazida jami 24 soatlik <br>
+                            Bilimni baholashda test topshiriqlarini shakllantirish amaliyoti  <br>bo‘yicha malakasini oshirdi.
                         {% endif %}
                     </h3>
                 </div>
